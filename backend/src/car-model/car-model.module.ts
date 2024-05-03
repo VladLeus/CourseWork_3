@@ -8,6 +8,7 @@ import { CarModelController } from './car-model.controller';
   imports: [DatabaseModule],
   controllers: [CarModelController],
   providers: [...carModelProvider, CarModelService],
-  exports: [CarModelService]
+  exports: [CarModelService],
 })
-export class CarModelModule {}
+export class CarModelModule {
+}

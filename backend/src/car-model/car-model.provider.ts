@@ -5,6 +5,6 @@ export const carModelProvider = [
   {
     provide: 'CAR_MODEL_REPOSITORY',
     useFactory: (dataSource: DataSource) => dataSource.getRepository(CarModel),
-    inject: ['DATA_SOURCE']
-  }
-]
+    inject: ['DATA_SOURCE'],
+  },
+];

@@ -4,7 +4,8 @@ import { CarModel } from '../db/entities/car_model.entity';
 
 @Controller('models')
 export class CarModelController {
-  constructor(private readonly carModelService: CarModelService) {}
+  constructor(private readonly carModelService: CarModelService) {
+  }
 
   @Get()
   async getAllCarModels(): Promise<CarModel[]> {

@@ -10,4 +10,5 @@ import { CarModelModule } from '../car-model/car-model.module';
   controllers: [UsersController],
   providers: [...usersProviders, UsersService],
 })
-export class UsersModule {}
+export class UsersModule {
+}

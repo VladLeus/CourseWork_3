@@ -21,7 +21,7 @@ export class CreateUserDto {
   dto_car_model_id: string;
 
   @IsEnum(['ADMIN', 'CLIENT'], {
-    message: 'Valid role required'
+    message: 'Valid role required',
   })
   @IsNotEmpty()
   dto_user_role: 'ADMIN' | 'CLIENT';
