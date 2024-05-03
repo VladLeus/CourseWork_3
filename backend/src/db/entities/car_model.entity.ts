@@ -5,7 +5,7 @@ export class CarModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'name' })
   name: string;
 
   @Column({ default: 'Audi' })

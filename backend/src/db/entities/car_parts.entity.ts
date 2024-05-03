@@ -12,7 +12,7 @@ export class CarPart {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
@@ -22,7 +22,7 @@ export class CarPart {
   @Column()
   description: string;
 
-  @Column()
+  @Column({ type: 'bytea', nullable: true })
   image: Buffer;
 
   @Column({ name: 'price_per_one' })

@@ -2,8 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { CarModel } from './car_model.entity';
 
@@ -24,10 +24,10 @@ export class User {
   @Column()
   password: string;
 
-  @ManyToOne(() => CarModel)
+  @OneToOne(() => CarModel, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'car_model_id' })
   carModel: CarModel;
 
-  @Column({ type: 'enum', enum: ['ADMIN', 'CLIENT'] })
+  @Column({ name: 'user_role', type: 'enum', enum: ['ADMIN', 'CLIENT'] })
   userRole: string;
 }
