@@ -6,12 +6,14 @@ import {
   Header,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
 import { User } from '../db/entities/users.entity';
 import { CreateUserDto } from '../dto/user/create-user.dto';
 import { LogInDto } from '../dto/user/log-in.dto';
+import { UserProfileDto } from '../dto/user/user-profile.dto';
 
 @Controller('users')
 export class UsersController {
@@ -25,8 +27,8 @@ export class UsersController {
   @Get(':id')
   async getUserById(
     @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<User> {
-    return await this.usersService.findById(id);
+  ): Promise<UserProfileDto> {
+    return await this.usersService.getUserProfile(id);
   }
 
   @Post()
@@ -38,7 +40,17 @@ export class UsersController {
   }
 
   @Post('login')
-  async logIn(@Body(ValidationPipe) logInDto: LogInDto): Promise<User> {
+  async logIn(
+    @Body(ValidationPipe) logInDto: LogInDto,
+  ): Promise<UserProfileDto> {
     return this.usersService.logIn(logInDto);
+  }
+
+  @Patch(':id/update')
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body(ValidationPipe) creteUserDto: CreateUserDto,
+  ): Promise<UserProfileDto> {
+    return this.usersService.update(id, creteUserDto);
   }
 }

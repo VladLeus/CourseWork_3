@@ -13,6 +13,7 @@ import * as bcrypt from 'bcrypt';
 import { CarModelService } from '../car-model/car-model.service';
 import { CarModel } from '../db/entities/car_model.entity';
 import { LogInDto } from '../dto/user/log-in.dto';
+import { UserProfileDto } from '../dto/user/user-profile.dto';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +24,13 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.usersRepository.find();
+    return this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.carModel', 'carModel')
+      .getMany()
+      .catch((e) => {
+        throw new HttpException(e.message, e.code);
+      });
   }
 
   async findById(id: string): Promise<User> {
@@ -64,7 +71,19 @@ export class UsersService {
     return newUser.id;
   }
 
-  async logIn(logInDto: LogInDto): Promise<User> {
+  async getUserProfile(id: string): Promise<UserProfileDto> {
+    const user: User = await this.findById(id);
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      dto_user_role: user.userRole,
+      dto_car_model_id: user.carModel.id,
+    };
+  }
+
+  async logIn(logInDto: LogInDto): Promise<UserProfileDto> {
     const users: User[] = await this.findAll();
     const currUser: User = users.filter(
       (user: User) => user.email === logInDto.email,
@@ -83,6 +102,50 @@ export class UsersService {
       throw new UnauthorizedException('Incorrect email or password');
     }
 
-    return this.findById(currUser.id);
+    return {
+      id: currUser.id,
+      firstName: currUser.firstName,
+      lastName: currUser.lastName,
+      email: currUser.email,
+      dto_user_role: currUser.userRole,
+      dto_car_model_id: currUser.carModel.id,
+    };
+  }
+
+  async update(
+    id: string,
+    createUserDto: CreateUserDto,
+  ): Promise<UserProfileDto> {
+    const carModel: CarModel = await this.carModelService.findById(
+      createUserDto.dto_car_model_id,
+    );
+    const saltOrRounds: number = 10;
+    const hash: string = await bcrypt.hash(
+      createUserDto.password,
+      saltOrRounds,
+    );
+
+    const user: User = {
+      id: id,
+      firstName: createUserDto.firstName,
+      lastName: createUserDto.lastName,
+      email: createUserDto.email,
+      password: hash,
+      carModel: carModel,
+      userRole: createUserDto.dto_user_role,
+    };
+
+    await this.usersRepository.save(user).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
+
+    return {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      dto_user_role: user.userRole,
+      dto_car_model_id: user.carModel.id,
+    };
   }
 }
