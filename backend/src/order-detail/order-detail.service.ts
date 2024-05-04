@@ -44,4 +44,30 @@ export class OrderDetailService {
 
     return newOrderDetail;
   }
+
+  async update(
+    id: string,
+    createOrderDetailDto: CreateOrderDetailDto,
+  ): Promise<OrderDetail> {
+    const updatedOrderDetail: OrderDetail = {
+      id: id,
+      partsBought: createOrderDetailDto.dto_partsBought,
+      totalPrice: createOrderDetailDto.dto_totalPrice,
+      orderDate: new Date(),
+    };
+
+    await this.orderDetailRepository.save(updatedOrderDetail).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
+
+    return updatedOrderDetail;
+  }
+
+  async delete(id: string): Promise<boolean> {
+    await this.orderDetailRepository.delete(id).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
+
+    return true;
+  }
 }

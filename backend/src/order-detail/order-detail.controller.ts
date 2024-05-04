@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   ValidationPipe,
 } from '@nestjs/common';
@@ -27,5 +29,18 @@ export class OrderDetailController {
     @Body(ValidationPipe) createOrderDetailDto: CreateOrderDetailDto,
   ): Promise<OrderDetail> {
     return await this.orderDetailService.create(createOrderDetailDto);
+  }
+
+  @Patch(':id/update')
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body(ValidationPipe) createOrderDetailDto: CreateOrderDetailDto,
+  ): Promise<OrderDetail> {
+    return this.orderDetailService.update(id, createOrderDetailDto);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<boolean> {
+    return this.orderDetailService.delete(id);
   }
 }
