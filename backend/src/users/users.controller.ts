@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { User } from '../db/entities/users.entity';
 import { CreateUserDto } from '../dto/user/create-user.dto';
+import { LogInDto } from '../dto/user/log-in.dto';
 
 @Controller('users')
 export class UsersController {
@@ -34,5 +35,10 @@ export class UsersController {
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<string> {
     return await this.usersService.create(createUserDto);
+  }
+
+  @Post('login')
+  async logIn(@Body(ValidationPipe) logInDto: LogInDto): Promise<User> {
+    return this.usersService.logIn(logInDto);
   }
 }

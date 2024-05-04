@@ -1,4 +1,10 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from '../db/entities/users.entity';
 import { CreateUserDto } from '../dto/user/create-user.dto';
@@ -6,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
 import { CarModelService } from '../car-model/car-model.service';
 import { CarModel } from '../db/entities/car_model.entity';
+import { LogInDto } from '../dto/user/log-in.dto';
 
 @Injectable()
 export class UsersService {
@@ -50,7 +57,32 @@ export class UsersService {
       userRole: createUserDto.dto_user_role,
     };
 
-    await this.usersRepository.save(newUser);
+    await this.usersRepository.save(newUser).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
+
     return newUser.id;
+  }
+
+  async logIn(logInDto: LogInDto): Promise<User> {
+    const users: User[] = await this.findAll();
+    const currUser: User = users.filter(
+      (user: User) => user.email === logInDto.email,
+    )[0];
+
+    if (!currUser) {
+      throw new UnauthorizedException('Incorrect email or password');
+    }
+
+    const isMatch: boolean = await bcrypt.compare(
+      logInDto.password,
+      currUser.password,
+    );
+
+    if (!isMatch) {
+      throw new UnauthorizedException('Incorrect email or password');
+    }
+
+    return this.findById(currUser.id);
   }
 }

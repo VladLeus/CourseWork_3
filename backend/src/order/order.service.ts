@@ -1,4 +1,4 @@
-import { Inject, NotFoundException } from '@nestjs/common';
+import { HttpException, Inject, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Order } from '../db/entities/orders.entity';
 import { CreateOrderDto } from '../dto/order/create-order.dto';
@@ -17,7 +17,13 @@ export class OrderService {
   ) {}
 
   async findAll(): Promise<Order[]> {
-    return this.orderRepository.find();
+    return this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.user', 'user')
+      .getMany()
+      .catch((e) => {
+        throw new HttpException(e.message, e.code);
+      });
   }
 
   async findById(id: string): Promise<Order> {
@@ -46,7 +52,9 @@ export class OrderService {
       orderDetail: orderDetail,
     };
 
-    await this.orderRepository.save(newOrder);
+    await this.orderRepository.save(newOrder).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
     return newOrder.id;
   }
 }

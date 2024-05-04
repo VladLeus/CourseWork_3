@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { OrderDetail } from '../db/entities/order_details.entity';
 import { v4 as uuidv4 } from 'uuid';
@@ -33,7 +38,9 @@ export class OrderDetailService {
       orderDate: new Date(),
     };
 
-    await this.orderDetailRepository.save(newOrderDetail);
+    await this.orderDetailRepository.save(newOrderDetail).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
 
     return newOrderDetail;
   }
