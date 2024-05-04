@@ -5,5 +5,5 @@ export class CreateOrderDto {
   dto_user_id: string;
 
   @IsUUID()
-  dto_user_details_id: string;
+  dto_order_details_id: string;
 }

@@ -7,15 +7,15 @@ export class CarPartService {
   constructor(
     @Inject('CAR_PART_REPOSITORY')
     private readonly carPartRepository: Repository<CarPart>,
-  ) {
-  }
+  ) {}
 
   async findAll(): Promise<CarPart[]> {
     return this.carPartRepository.find();
   }
 
   async findById(id: string): Promise<CarPart> {
-    return this.carPartRepository.createQueryBuilder('carPart')
+    return this.carPartRepository
+      .createQueryBuilder('carPart')
       .leftJoinAndSelect('carPart.category', 'category')
       .where('carPart.id = :id', { id })
       .getOne()

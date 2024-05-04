@@ -1,12 +1,20 @@
 import { UsersService } from './users.service';
-import { Body, Controller, Get, Header, Param, ParseUUIDPipe, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Header,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { User } from '../db/entities/users.entity';
 import { CreateUserDto } from '../dto/user/create-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {
-  }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   async getAllUsers(): Promise<User[]> {
@@ -14,13 +22,17 @@ export class UsersController {
   }
 
   @Get(':id')
-  async getUserById(@Param('id', new ParseUUIDPipe()) id: string): Promise<User> {
+  async getUserById(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<User> {
     return await this.usersService.findById(id);
   }
 
   @Post()
   @Header('Content-Type', 'application/json')
-  async create(@Body(ValidationPipe) createUserDto: CreateUserDto): Promise<string> {
+  async create(
+    @Body(ValidationPipe) createUserDto: CreateUserDto,
+  ): Promise<string> {
     return await this.usersService.create(createUserDto);
   }
 }

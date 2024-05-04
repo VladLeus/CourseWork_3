@@ -9,6 +9,6 @@ import { CarModelModule } from '../car-model/car-model.module';
   imports: [DatabaseModule, CarModelModule],
   controllers: [UsersController],
   providers: [...usersProviders, UsersService],
+  exports: [UsersService],
 })
-export class UsersModule {
-}
+export class UsersModule {}

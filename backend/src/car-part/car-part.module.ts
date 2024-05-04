@@ -9,5 +9,4 @@ import { CarPartService } from './car-part.service';
   controllers: [CarPartController],
   providers: [...carPartProviders, CarPartService],
 })
-export class CarPartModule {
-}
+export class CarPartModule {}

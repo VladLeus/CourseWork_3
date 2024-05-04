@@ -6,8 +6,7 @@ export class CarModelService {
   constructor(
     @Inject('CAR_MODEL_REPOSITORY')
     private readonly carModelRepository: Repository<CarModel>,
-  ) {
-  }
+  ) {}
 
   async findAll(): Promise<CarModel[]> {
     return this.carModelRepository.find();

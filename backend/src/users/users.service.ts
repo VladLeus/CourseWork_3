@@ -13,15 +13,15 @@ export class UsersService {
     @Inject('USERS_REPOSITORY')
     private readonly usersRepository: Repository<User>,
     private readonly carModelService: CarModelService,
-  ) {
-  }
+  ) {}
 
   async findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
   async findById(id: string): Promise<User> {
-    return this.usersRepository.createQueryBuilder('user')
+    return this.usersRepository
+      .createQueryBuilder('user')
       .leftJoinAndSelect('user.carModel', 'carModel')
       .where('user.id = :id', { id })
       .getOne()
@@ -31,9 +31,14 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<string> {
-    const carModel: CarModel = await this.carModelService.findById(createUserDto.dto_car_model_id);
+    const carModel: CarModel = await this.carModelService.findById(
+      createUserDto.dto_car_model_id,
+    );
     const saltOrRounds: number = 10;
-    const hash: string = await bcrypt.hash(createUserDto.password, saltOrRounds);
+    const hash: string = await bcrypt.hash(
+      createUserDto.password,
+      saltOrRounds,
+    );
 
     const newUser: User = {
       id: uuidv4(),

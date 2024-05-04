@@ -1,14 +1,16 @@
-import { IsDate, IsJSON, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateOrderDetailDto {
-  @IsJSON()
+  @IsArray()
   @IsNotEmpty()
-  dto_partsBought: object[];
+  dto_partsBought: [
+    {
+      car_part_id: string;
+      quantity: number;
+    },
+  ];
 
   @IsNumber()
   @IsPositive()
   dto_totalPrice: number;
-
-  @IsDate()
-  dto_orderDate: Date;
 }

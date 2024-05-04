@@ -4,10 +4,7 @@ import { CarPart } from '../db/entities/car_parts.entity';
 
 @Controller('parts')
 export class CarPartController {
-  constructor(
-    private readonly carPartService: CarPartService,
-  ) {
-  }
+  constructor(private readonly carPartService: CarPartService) {}
 
   @Get()
   async getAllCarParts(): Promise<CarPart[]> {
@@ -15,7 +12,9 @@ export class CarPartController {
   }
 
   @Get(':id')
-  async getCarPartById(@Param('id', new ParseUUIDPipe()) id: string): Promise<CarPart> {
+  async getCarPartById(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<CarPart> {
     return await this.carPartService.findById(id);
   }
 }
