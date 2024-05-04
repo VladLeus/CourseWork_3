@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Header,
   Param,
@@ -18,14 +19,14 @@ export class OrderController {
 
   @Get()
   async getAllOrders(): Promise<Order[]> {
-    return await this.orderService.findAll();
+    return await this.orderService.getAllOrders();
   }
 
   @Get(':id')
   async getOrderById(
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<Order> {
-    return await this.orderService.findById(id);
+    return await this.orderService.getOrderById(id);
   }
 
   @Post()
@@ -34,5 +35,17 @@ export class OrderController {
     @Body(ValidationPipe) createOrderDto: CreateOrderDto,
   ): Promise<string> {
     return await this.orderService.create(createOrderDto);
+  }
+
+  @Get('/user/:userId')
+  async getUserOrders(
+    @Param('userId', new ParseUUIDPipe()) userId: string,
+  ): Promise<Order[]> {
+    return this.orderService.getUserOrders(userId);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<boolean> {
+    return this.orderService.delete(id);
   }
 }

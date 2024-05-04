@@ -38,6 +38,27 @@ export class OrderService {
       });
   }
 
+  async getAllOrders(): Promise<Order[]> {
+    return this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.orderDetail', 'orderDetail')
+      .getMany()
+      .catch((e) => {
+        throw new HttpException(e.message, e.code);
+      });
+  }
+
+  async getOrderById(id: string): Promise<Order> {
+    return this.orderRepository
+      .createQueryBuilder('order')
+      .leftJoinAndSelect('order.orderDetail', 'orderDetail')
+      .where('order.id = :id', { id })
+      .getOne()
+      .catch(() => {
+        throw new NotFoundException('Order not found');
+      });
+  }
+
   async create(createOrderDto: CreateOrderDto): Promise<string> {
     const user: User = await this.userService.findById(
       createOrderDto.dto_user_id,
@@ -56,5 +77,28 @@ export class OrderService {
       throw new HttpException(e.message, e.code);
     });
     return newOrder.id;
+  }
+
+  async getUserOrders(userId: string): Promise<Order[]> {
+    const orders: Order[] = await this.findAll();
+    const userOrders: Order[] = orders.filter(
+      (order: Order) => order.user.id === userId,
+    );
+
+    const ordersToReturn: Order[] = [];
+    for (const order of userOrders) {
+      const temp: Order = await this.getOrderById(order.id);
+      ordersToReturn.push(temp);
+    }
+
+    return ordersToReturn;
+  }
+
+  async delete(id: string): Promise<boolean> {
+    await this.orderRepository.delete(id).catch((e) => {
+      throw new HttpException(e.message, e.code);
+    });
+
+    return true;
   }
 }
