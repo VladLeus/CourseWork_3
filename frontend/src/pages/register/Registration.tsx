@@ -9,7 +9,7 @@ export function Registration() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (Object.entries(user).length !== 0) {
+        if (user) {
             navigate('/home');
         }
     }, [user, navigate]);
@@ -17,7 +17,7 @@ export function Registration() {
     return (
         <>
             <RegisterHeader />
-            {Object.entries(user).length === 0 && (
+            {!user && (
                 <main className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center mt-5">
                         <p className="text-white font-custom text-6xl">Welcome!</p>

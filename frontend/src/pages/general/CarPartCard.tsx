@@ -3,7 +3,7 @@ import {CarPart} from "../../models/car-part.ts";
 import {useActions} from "../../hooks/useActions.ts";
 
 interface CarPartCardProps {
-    carPart: CarPart
+    carPart: CarPart,
 }
 
 const CarPartCard: React.FC<CarPartCardProps> = ({ carPart}) => {
@@ -19,7 +19,7 @@ const CarPartCard: React.FC<CarPartCardProps> = ({ carPart}) => {
             <p className="w-[235px] h-6 overflow-hidden ml-1.5"><span className="font-custom">Name:</span> { carPart.name }</p>
             <p className="w-[235px] h-6 overflow-hidden ml-1.5"><span className="font-custom">Description:</span> {carPart.description} </p>
             <p className="ml-1.5"><span className="font-custom">Price:</span> { carPart.pricePerOne + " $"}</p>
-            <p onClick={handleAddToCart} className="bg-black text-white font-thin py-1 px-2 rounded-lg ml-1.5 mb-0.5 cursor-pointer">Add <i className="fi fi-rr-shopping-cart-add"></i></p>
+            <p onClick={handleAddToCart} className="bg-black text-white font-thin py-1 px-2 rounded-lg ml-1.5 mb-0.5 cursor-pointer hover:bg-rojo">Add <i className="fi fi-rr-shopping-cart-add"></i></p>
         </div>
     )
 }
