@@ -44,7 +44,7 @@ export class UsersService {
       });
   }
 
-  async create(createUserDto: CreateUserDto): Promise<string> {
+  async create(createUserDto: CreateUserDto): Promise<UserProfileDto> {
     const carModel: CarModel = await this.carModelService.findById(
       createUserDto.dto_car_model_id,
     );
@@ -68,7 +68,14 @@ export class UsersService {
       throw new HttpException(e.message, e.code);
     });
 
-    return newUser.id;
+    return {
+      id: newUser.id,
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
+      dto_car_model_id: newUser.carModel.id,
+      dto_user_role: newUser.userRole,
+    };
   }
 
   async getUserProfile(id: string): Promise<UserProfileDto> {

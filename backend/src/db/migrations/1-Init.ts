@@ -48,19 +48,22 @@ export class Init1714729250699 implements MigrationInterface {
     await queryRunner.query(`
         create table public."user"
         (
-            id           uuid primary key    not null default uuid_generate_v4(),
-            first_name   character varying   not null,
-            last_name    character varying   not null,
-            email        character varying   not null,
-            password     character varying   not null,
-            user_role    user_user_role_enum not null,
-            car_model_id uuid,
-            foreign key (car_model_id) references public.car_model (id)
-                match simple on update no action on delete set null
+            id           uuid default uuid_generate_v4() not null
+                constraint "PK_cace4a159ff9f2512dd42373760"
+                    primary key,
+            first_name   varchar                         not null,
+            last_name    varchar                         not null,
+            email        varchar                         not null,
+            password     varchar                         not null,
+            user_role    user_user_role_enum             not null,
+            car_model_id uuid
+                constraint "FK_2e2c9d4ef641e9432fc444fa7f8"
+                    references public.car_model
+                    on delete set null
         );
-        create unique index "REL_2e2c9d4ef641e9432fc444fa7f" on "user" using btree (car_model_id);
 
-
+        alter table public."user"
+            owner to postgres;
     `);
 
     await queryRunner.query(`

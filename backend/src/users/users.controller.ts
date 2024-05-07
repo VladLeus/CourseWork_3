@@ -35,7 +35,7 @@ export class UsersController {
   @Header('Content-Type', 'application/json')
   async create(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
-  ): Promise<string> {
+  ): Promise<UserProfileDto> {
     return await this.usersService.create(createUserDto);
   }
 

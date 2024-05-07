@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CarModel } from './car_model.entity';
@@ -24,7 +24,7 @@ export class User {
   @Column()
   password: string;
 
-  @OneToOne(() => CarModel, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => CarModel, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'car_model_id' })
   carModel: CarModel;
 
