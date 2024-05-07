@@ -10,7 +10,13 @@ export class CarPartService {
   ) {}
 
   async findAll(): Promise<CarPart[]> {
-    return this.carPartRepository.find();
+    return this.carPartRepository
+      .createQueryBuilder('carPart')
+      .leftJoinAndSelect('carPart.category', 'category')
+      .getMany()
+      .catch(() => {
+        throw new NotFoundException('Car part not found');
+      });
   }
 
   async findById(id: string): Promise<CarPart> {

@@ -1,8 +1,8 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {Models} from "../../models/car-model.ts";
-import {CreateUserDto} from "../../models/dto/create-user.dto.ts";
+import {CreateUserDto} from "../../models/dto/user/create-user.dto.ts";
 import {UserProfile} from "../../models/user-profile.ts";
-import {LoginUserDto} from "../../models/dto/login-user.dto.ts";
+import {LoginUserDto} from "../../models/dto/user/login-user.dto.ts";
 
 export const backendApi = createApi({
     reducerPath: 'backend/api',

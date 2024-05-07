@@ -2,7 +2,7 @@ import MyInput from "../../general/MyInput.tsx";
 import {useState} from "react";
 import {useAppSelector} from "../../../hooks/useAppSelector.ts";
 import {Model} from "../../../models/car-model.ts";
-import {CreateUserDto} from "../../../models/dto/create-user.dto.ts";
+import {CreateUserDto} from "../../../models/dto/user/create-user.dto.ts";
 import {useCreateUserMutation} from "../../../store/backendAPI/backend.api.ts";
 import {useActions} from "../../../hooks/useActions.ts";
 import {Link, useNavigate} from "react-router-dom";

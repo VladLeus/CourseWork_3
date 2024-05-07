@@ -1,6 +1,6 @@
 import MyInput from "../../general/MyInput.tsx";
 import {useState} from "react";
-import {LoginUserDto} from "../../../models/dto/login-user.dto.ts";
+import {LoginUserDto} from "../../../models/dto/user/login-user.dto.ts";
 import {useLoginUserMutation} from "../../../store/backendAPI/backend.api.ts";
 import {useActions} from "../../../hooks/useActions.ts";
 import {Link, useNavigate} from "react-router-dom";
