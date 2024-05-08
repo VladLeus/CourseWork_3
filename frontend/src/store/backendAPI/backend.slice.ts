@@ -69,7 +69,7 @@ export const backendSlice = createSlice(
             setOrder: (state, action: PayloadAction<Order[]>) => {
                 state.ordersAdmin = action.payload as Order[];
             },
-            removeOrder(state, action: PayloadAction<{orderID: string}>) {
+            removeOrder(state, action: PayloadAction<{ orderID: string }>) {
                 state.ordersAdmin = state.ordersAdmin.filter(o => o.id !== action.payload.orderID);
             },
         }

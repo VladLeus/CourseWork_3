@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 
 export function Login() {
-    const {user } = useAppSelector(state => state.backend);
+    const {user} = useAppSelector(state => state.backend);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export function Login() {
             <main className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-center items-center">
                 <p className="text-white font-custom text-4xl mt-8">Welcome back!</p>
                 <p className="text-white font-semibold text-xl">To start using our app u need to login</p>
-                <LoginForm />
+                <LoginForm/>
             </main>
         </>
     );

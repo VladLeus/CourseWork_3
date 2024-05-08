@@ -8,7 +8,7 @@ import OrderCardAdmin from "./OrderCardAdmin.tsx";
 import {useActions} from "../../../hooks/useActions.ts";
 
 export function Orders() {
-    const { user, ordersAdmin } = useAppSelector(state => state.backend);
+    const {user, ordersAdmin} = useAppSelector(state => state.backend);
     const {removeOrder, setOrder} = useActions();
     const navigate = useNavigate();
     const [error, setError] = useState<string>();
@@ -47,7 +47,7 @@ export function Orders() {
     }
     return (
         <>
-            <Header />
+            <Header/>
             <main
                 className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-center items-center overflow-y-hidden">
                 <div className="mt-10 mx-auto grid grid-cols-4">
@@ -58,8 +58,10 @@ export function Orders() {
                         )
                     }
                 </div>
-                {ordersAdmin.length === 0 && <p className="text-white font-custom text-2xl mx-auto mt-10">No orders added yet</p>}
-                {isLoading || isOrdersLoading && <p className="text-white font-custom text-2xl mx-auto mt-10">Loading...</p>}
+                {ordersAdmin.length === 0 &&
+                    <p className="text-white font-custom text-2xl mx-auto mt-10">No orders added yet</p>}
+                {isLoading || isOrdersLoading &&
+                    <p className="text-white font-custom text-2xl mx-auto mt-10">Loading...</p>}
                 {isError || isOrderError && <p className="text-white font-custom text-2xl mx-auto mt-10">{error}</p>}
             </main>
         </>

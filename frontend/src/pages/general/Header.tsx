@@ -12,7 +12,7 @@ export function Header() {
                 />
                 <p className="font-custom text-white text-5xl mx-5">Prime <span className="text-rojo">Drive</span></p>
             </Link>
-            <Nav />
+            <Nav/>
         </header>
     );
 }

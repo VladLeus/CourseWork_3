@@ -21,7 +21,7 @@ export function UserOrders() {
 
     const getUserOrders = async () => {
         const res = await getUserOrder(user?.id!);
-        if('data' in res) {
+        if ('data' in res) {
             setUserOrders(res.data);
         } else {
             // @ts-ignore
@@ -29,15 +29,16 @@ export function UserOrders() {
         }
     }
 
-    useEffect( () => {
+    useEffect(() => {
         getUserOrders();
     }, [user]);
 
 
     return (
         <>
-            <Header />
-            <main className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-start items-start overflow-y-hidden">
+            <Header/>
+            <main
+                className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-start items-start overflow-y-hidden">
                 <div className="mt-10 mx-auto grid grid-cols-4">
                     {
                         userOrders?.map((item: Order) => (

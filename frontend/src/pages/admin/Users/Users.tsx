@@ -10,7 +10,7 @@ export function Users() {
 
     const initUsers = async () => {
         const res = await getAllUsers('');
-        if( 'data' in res ) {
+        if ('data' in res) {
             setUsers(res.data);
         } else {
             // @ts-ignore
@@ -23,7 +23,7 @@ export function Users() {
     }, []);
     return (
         <>
-            <Header />
+            <Header/>
             <main
                 className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-center items-center overflow-y-hidden">
                 <div className="mt-10 mx-auto grid grid-cols-4">

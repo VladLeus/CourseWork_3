@@ -6,7 +6,7 @@ interface OrderCard {
     order: Order,
 }
 
-const OrderCard: React.FC<OrderCard> = ({ order}) => {
+const OrderCard: React.FC<OrderCard> = ({order}) => {
 
     const [quantity, setQuantity] = useState<number>(1);
 
@@ -22,14 +22,14 @@ const OrderCard: React.FC<OrderCard> = ({ order}) => {
         <div
             className="flex flex-col items-start justify-center w-[250px] rounded-2xl bg-white text-black font-normal m-2">
             <p className="ml-10 text-black text-lg my-2"><span className="font-custom">Date: </span>
-                { new Date(order.orderDetail.orderDate).toLocaleDateString()}
+                {new Date(order.orderDetail.orderDate).toLocaleDateString()}
             </p>
             <p className="ml-10 text-black text-lg my-0.5"><span className="font-custom">Price: </span>
-                { order.orderDetail.totalPrice + '$'}
+                {order.orderDetail.totalPrice + '$'}
             </p>
             <p className="ml-10 text-black text-lg mb-2">
                 <span className="font-custom">Parts bought: </span>
-                { quantity}
+                {quantity}
             </p>
         </div>
     )

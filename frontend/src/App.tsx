@@ -13,14 +13,14 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<Registration />}/>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Registration/>}/>
+            <Route path="/login" element={<Login/>}/>
             <Route path="/home" element={<Home/>}/>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/my-orders" element={<UserOrders />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/users" element={<Users />} />
+            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/my-orders" element={<UserOrders/>}/>
+            <Route path="/cart" element={<Cart/>}/>
+            <Route path="/orders" element={<Orders/>}/>
+            <Route path="/users" element={<Users/>}/>
         </Routes>
     )
 }

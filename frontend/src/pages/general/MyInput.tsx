@@ -50,7 +50,9 @@ const MyInput: React.FC<MyInputProps> = (props) => {
         }
     }
 
-    useEffect(() => {definePattern()}, []);
+    useEffect(() => {
+        definePattern()
+    }, []);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);

@@ -83,7 +83,7 @@ export const backendApi = createApi({
                 return response
             }
         }),
-        updateUser: build.mutation<UserProfile, {body: CreateUserDto; userId: string}>({
+        updateUser: build.mutation<UserProfile, { body: CreateUserDto; userId: string }>({
             query: ({body, userId}) => ({
                 url: `/users/${userId}/update`,
                 method: 'PATCH',

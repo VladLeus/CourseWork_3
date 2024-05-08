@@ -64,11 +64,12 @@ export function Profile() {
 
     return (
         <>
-            <Header />
+            <Header/>
             <main
                 className="w-full max-w-screen-xl h-svh bg-madder flex flex-col justify-center items-center overflow-y-hidden">
                 <p className="text-black text-4xl font-custom ml-10 mt-10">Your profile: </p>
-                <p className="text-white text-sm ml-10 mt-4">You can change your data but need to enter existing password or enter new</p>
+                <p className="text-white text-sm ml-10 mt-4">You can change your data but need to enter existing
+                    password or enter new</p>
                 <form
                     className="mb-auto mt-10 flex flex-col justify-center items-center"
                     onSubmit={async (event) => {
@@ -138,7 +139,8 @@ export function Profile() {
                         >
                             Update
                         </button>
-                        <p onClick={() => clearUser()} className="text-black bg-white py-2 px-4 font-custom cursor-pointer">
+                        <p onClick={() => clearUser()}
+                           className="text-black bg-white py-2 px-4 font-custom cursor-pointer">
                             <Link to='/login'>
                                 Logout
                             </Link>

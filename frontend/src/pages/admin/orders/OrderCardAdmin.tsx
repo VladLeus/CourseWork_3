@@ -8,7 +8,7 @@ interface OrderCardAdmin {
     handleRemoveOrder: (orderId: string) => void,
 }
 
-const OrderCardAdmin: React.FC<OrderCardAdmin> = ({ order, handleRemoveOrder}) => {
+const OrderCardAdmin: React.FC<OrderCardAdmin> = ({order, handleRemoveOrder}) => {
 
     const [quantity, setQuantity] = useState<number>(1);
 

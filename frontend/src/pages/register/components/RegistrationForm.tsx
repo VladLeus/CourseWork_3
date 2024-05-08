@@ -117,9 +117,9 @@ export function RegistrationForm() {
                     </option>
                 ))}
             </select>
-            { error && <p className="text-white text-2xl mt-4 font-bold"> {error} </p> }
-            { isLoading && <p className="text-white text-2xl mt-4 font-semibold"> Loading...</p> }
-            { isError && <p className="text-white text-2xl mt-4 font-bold"> Some error occurred </p> }
+            {error && <p className="text-white text-2xl mt-4 font-bold"> {error} </p>}
+            {isLoading && <p className="text-white text-2xl mt-4 font-semibold"> Loading...</p>}
+            {isError && <p className="text-white text-2xl mt-4 font-bold"> Some error occurred </p>}
             <div className="flex items-center justify-between w-full max-w-[340px] mt-2">
                 <button
                     type="submit"
