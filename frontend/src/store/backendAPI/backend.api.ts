@@ -25,8 +25,12 @@ export const backendApi = createApi({
                 method: 'POST',
                 body,
             }),
-            transformResponse: (response: any) => { return response },
-            transformErrorResponse: (response: any) => { return response }
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
         }),
         loginUser: build.mutation<UserProfile, LoginUserDto>({
             query: (body: LoginUserDto) => ({
@@ -34,8 +38,12 @@ export const backendApi = createApi({
                 method: 'POST',
                 body,
             }),
-            transformResponse: (response: any) => { return response },
-            transformErrorResponse: (response: any) => { return response }
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
         }),
         createOrderDetails: build.mutation<OrderDetail, OrderDetailDto>({
             query: (body: OrderDetailDto) => ({
@@ -43,8 +51,12 @@ export const backendApi = createApi({
                 method: 'POST',
                 body,
             }),
-            transformResponse: (response: any) => { return response },
-            transformErrorResponse: (response: any) => { return response }
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
         }),
         createOrder: build.mutation<Order, CreateOrderDto>({
             query: (body: CreateOrderDto) => ({
@@ -52,8 +64,36 @@ export const backendApi = createApi({
                 method: 'POST',
                 body,
             }),
-            transformResponse: (response: any) => { return response },
-            transformErrorResponse: (response: any) => { return response }
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
+        }),
+        getUserOrders: build.query<Order[], string>({
+            query: (userId: string) => ({
+                url: `order/user/${userId}`
+            }),
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
+        }),
+        updateUser: build.mutation<UserProfile, {body: CreateUserDto; userId: string}>({
+            query: ({body, userId}) => ({
+                url: `/users/${userId}/update`,
+                method: 'PATCH',
+                body
+            }),
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
         })
     })
 });
@@ -64,4 +104,6 @@ export const {
     useLoginUserMutation,
     useCreateOrderDetailsMutation,
     useCreateOrderMutation,
+    useLazyGetUserOrdersQuery,
+    useUpdateUserMutation
 } = backendApi;

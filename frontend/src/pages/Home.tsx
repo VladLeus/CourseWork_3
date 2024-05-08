@@ -1,9 +1,18 @@
 import { Header } from "./general/Header.tsx";
 import { useAppSelector } from "../hooks/useAppSelector.ts";
 import CarPartCard from "./general/CarPartCard.tsx";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export function Home() {
-    const { carParts } = useAppSelector(state => state.backend);
+    const { carParts, user } = useAppSelector(state => state.backend);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     return (
         <div className="flex flex-col items-center justify-between w-full max-w-screen-xl h-svh">

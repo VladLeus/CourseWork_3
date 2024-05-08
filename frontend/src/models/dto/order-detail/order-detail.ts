@@ -1,6 +1,8 @@
+import {Detail} from "../../Detail.ts";
+
 export interface OrderDetail {
     id: string;
-    partsBought: object[];
+    partsBought: Detail[];
     totalPrice: number;
     orderDate: Date;
 }

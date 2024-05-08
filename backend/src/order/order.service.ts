@@ -59,7 +59,9 @@ export class OrderService {
       });
   }
 
-  async create(createOrderDto: CreateOrderDto): Promise<string> {
+  async create(
+    createOrderDto: CreateOrderDto,
+  ): Promise<{ newOrderId: string }> {
     const user: User = await this.userService.findById(
       createOrderDto.dto_user_id,
     );
@@ -76,7 +78,7 @@ export class OrderService {
     await this.orderRepository.save(newOrder).catch((e) => {
       throw new HttpException(e.message, e.code);
     });
-    return newOrder.id;
+    return { newOrderId: newOrder.id };
   }
 
   async getUserOrders(userId: string): Promise<Order[]> {

@@ -41,7 +41,8 @@ export function RegistrationForm() {
             setUser(res.data);
             navigate('/home')
         } else if ('error' in res) {
-            console.log(res.error)
+            // @ts-ignore
+            setError(res.error.message)
         }
     }
 

@@ -33,7 +33,7 @@ export class OrderController {
   @Header('Content-Type', 'application/json')
   async create(
     @Body(ValidationPipe) createOrderDto: CreateOrderDto,
-  ): Promise<string> {
+  ): Promise<{ newOrderId: string }> {
     return await this.orderService.create(createOrderDto);
   }
 

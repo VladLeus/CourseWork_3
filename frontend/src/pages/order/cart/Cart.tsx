@@ -7,6 +7,7 @@ import {useCreateOrderDetailsMutation, useCreateOrderMutation} from "../../../st
 import {useEffect, useState} from "react";
 import {OrderDetailDto} from "../../../models/dto/order-detail/order-detail.dto.ts";
 import {CreateOrderDto} from "../../../models/dto/order/create-order.dto.ts";
+import {useNavigate} from "react-router-dom";
 
 
 export function Cart() {
@@ -15,6 +16,13 @@ export function Cart() {
     const [createOrder, {isLoading: isOrderLoading, isError: isOrderError}] = useCreateOrderMutation();
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const { clearCart, clearDetails} = useActions();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/');
+        }
+    }, [user, navigate]);
 
     const placeOrder = async () => {
         const orderDetailsDto: OrderDetailDto = {
@@ -30,7 +38,6 @@ export function Cart() {
                 dto_order_details_id: response.data.id
             };
 
-            console.log(orderDto);
             const res = await createOrder(orderDto);
 
             if ('data' in res) {

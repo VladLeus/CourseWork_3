@@ -4,7 +4,7 @@ export function Nav() {
     const navStyles: string = 'flex justify-center items-center font-custom h-full text-white text-xl hover:text-madder transition-colors duration-200'
 
     return (
-        <nav className="grid grid-cols-5 grid-rows-1 w-full h-full max-w-3xl">
+        <nav className="grid grid-cols-4 grid-rows-1 w-full h-full max-w-3xl">
             <p className={navStyles}>
                 <i className="fi fi-rr-home mr-2"></i>
                 <Link to="/home">
@@ -27,12 +27,6 @@ export function Nav() {
                 <i className="fi fi-rr-user mr-2"></i>
                 <Link to="/profile">
                     Profile
-                </Link>
-            </p>
-            <p className={navStyles}>
-                <i className="fi fi-rr-info mr-2"></i>
-                <Link to="/about-us">
-                    About Us
                 </Link>
             </p>
         </nav>
