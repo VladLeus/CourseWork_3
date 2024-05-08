@@ -99,11 +99,13 @@ export class UsersService {
     if (!currUser) {
       throw new UnauthorizedException('Incorrect email or password');
     }
+    let isMatch: boolean;
 
-    const isMatch: boolean = await bcrypt.compare(
-      logInDto.password,
-      currUser.password,
-    );
+    if (currUser.userRole === 'ADMIN') {
+      isMatch = currUser.password === logInDto.password;
+    } else {
+      isMatch = await bcrypt.compare(logInDto.password, currUser.password);
+    }
 
     if (!isMatch) {
       throw new UnauthorizedException('Incorrect email or password');
@@ -115,7 +117,7 @@ export class UsersService {
       lastName: currUser.lastName,
       email: currUser.email,
       dto_user_role: currUser.userRole,
-      dto_car_model_id: currUser.carModel.id,
+      dto_car_model_id: currUser.carModel?.id,
     };
   }
 

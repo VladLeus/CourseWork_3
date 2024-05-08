@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {useAppSelector} from "../../hooks/useAppSelector.ts";
 
 interface MyInputProps {
     placeholder: string,
@@ -9,6 +10,7 @@ interface MyInputProps {
 }
 
 const MyInput: React.FC<MyInputProps> = (props) => {
+    const {user} = useAppSelector(state => state.backend);
     const [isHovered, setIsHovered] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState<string>(props.value);
     const [isActive, setIsActive] = useState<boolean>(false);
@@ -19,6 +21,17 @@ const MyInput: React.FC<MyInputProps> = (props) => {
     const labelClasses: string = `cursor-default text-left text-[#757575] transition-all ease-linear relative top-[-38px] ${
         (isHovered || inputValue !== '' || isActive) ? 'top-[-52px] text-sm' : ''
     } select-none`;
+
+    const minLenght = (): number => {
+        if (props.type === 'password') {
+            if (user?.dto_user_role === 'Client') {
+                return 8;
+            } else {
+                return 2;
+            }
+        }
+        return 2;
+    }
 
     const definePattern = () => {
         switch (props.type) {
@@ -57,7 +70,7 @@ const MyInput: React.FC<MyInputProps> = (props) => {
                 onChange={handleInputChange}
                 onFocus={() => setIsActive(true)}
                 onBlur={() => setIsActive(false)}
-                minLength={props.type === 'password' ? 8 : 2}
+                minLength={minLenght()}
                 maxLength={props.maxLength}
                 required={true}
                 className="normal-case bg-none text-left border-0 text-black h-10 w-full text-lg rounded-none mt-3 p-0 box-border outline-none"

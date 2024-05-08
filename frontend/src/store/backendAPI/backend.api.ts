@@ -94,6 +94,29 @@ export const backendApi = createApi({
             transformErrorResponse: (response: any) => {
                 return response
             }
+        }),
+        getAllOrders: build.query<Order[], string>({
+            query: () => ({
+                url: `/order/admin`
+            }),
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
+        }),
+        deleteOrder: build.mutation<{ orderDeleteSuccessful: boolean }, string>({
+            query: (orderId: string) => ({
+                url: `/order/${orderId}`,
+                method: 'DELETE'
+            }),
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
         })
     })
 });
@@ -105,5 +128,7 @@ export const {
     useCreateOrderDetailsMutation,
     useCreateOrderMutation,
     useLazyGetUserOrdersQuery,
-    useUpdateUserMutation
+    useUpdateUserMutation,
+    useLazyGetAllOrdersQuery,
+    useDeleteOrderMutation
 } = backendApi;

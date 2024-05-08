@@ -17,7 +17,7 @@ export class UserProfileDto {
   email: string;
 
   @IsUUID()
-  dto_car_model_id: string;
+  dto_car_model_id?: string;
 
   @IsString()
   @IsNotEmpty()

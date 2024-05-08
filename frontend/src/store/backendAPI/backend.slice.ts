@@ -3,6 +3,7 @@ import {Models} from "../../models/car-model.ts";
 import {UserProfile} from "../../models/user-profile.ts";
 import {CarPart} from "../../models/car-part.ts";
 import {Detail} from "../../models/Detail.ts";
+import {Order} from "../../models/dto/order/order.ts";
 
 
 interface BackendState {
@@ -10,7 +11,8 @@ interface BackendState {
     user: UserProfile | null,
     carParts: CarPart[] | [],
     cart: CarPart[],
-    details: Detail[]
+    details: Detail[],
+    ordersAdmin: Order[]
 }
 
 const initialState: BackendState = {
@@ -22,7 +24,10 @@ const initialState: BackendState = {
         .then(res => res.json())
         .catch(() => []),
     cart: [],
-    details: []
+    details: [],
+    ordersAdmin: await fetch('http://localhost:3000/order/admin')
+        .then(res => res.json())
+        .catch(() => []),
 }
 
 export const backendSlice = createSlice(
@@ -60,6 +65,12 @@ export const backendSlice = createSlice(
             },
             clearDetails(state) {
                 state.cart = [];
+            },
+            setOrder: (state, action: PayloadAction<Order[]>) => {
+                state.ordersAdmin = action.payload as Order[];
+            },
+            removeOrder(state, action: PayloadAction<{orderID: string}>) {
+                state.ordersAdmin = state.ordersAdmin.filter(o => o.id !== action.payload.orderID);
             },
         }
     }

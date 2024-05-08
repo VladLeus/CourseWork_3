@@ -20,6 +20,7 @@ export class OrderService {
     return this.orderRepository
       .createQueryBuilder('order')
       .leftJoinAndSelect('order.user', 'user')
+      .leftJoinAndSelect('order.orderDetail', 'orderDetail')
       .getMany()
       .catch((e) => {
         throw new HttpException(e.message, e.code);
@@ -96,11 +97,11 @@ export class OrderService {
     return ordersToReturn;
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string): Promise<{ orderDeleteSuccessful: boolean }> {
     await this.orderRepository.delete(id).catch((e) => {
       throw new HttpException(e.message, e.code);
     });
 
-    return true;
+    return { orderDeleteSuccessful: true };
   }
 }

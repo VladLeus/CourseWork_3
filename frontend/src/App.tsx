@@ -6,6 +6,8 @@ import {Profile} from "./pages/profile/Profile.tsx";
 import {UserOrders} from "./pages/order/UserOrders.tsx";
 import {Cart} from "./pages/order/cart/Cart.tsx";
 import "./App.css";
+import {Orders} from "./pages/admin/orders/Orders.tsx";
+import {Users} from "./pages/admin/Users/Users.tsx";
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/my-orders" element={<UserOrders />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/users" element={<Users />} />
         </Routes>
     )
 }

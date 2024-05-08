@@ -45,7 +45,7 @@ export function UserOrders() {
                             )
                         )
                     }
-            </div>
+                </div>
             </main>
             {!userOrders && <p className="text-white font-custom text-2xl mx-auto mt-10">No orders added yet</p>}
             {isLoading && <p className="text-white font-custom text-2xl mx-auto mt-10">Loading...</p>}

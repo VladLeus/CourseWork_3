@@ -17,6 +17,11 @@ import { CreateOrderDto } from '../dto/order/create-order.dto';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
+  @Get('/admin')
+  async getAllOrdersAdmin(): Promise<Order[]> {
+    return await this.orderService.findAll();
+  }
+
   @Get()
   async getAllOrders(): Promise<Order[]> {
     return await this.orderService.getAllOrders();
@@ -45,7 +50,9 @@ export class OrderController {
   }
 
   @Delete(':id')
-  async delete(@Param('id', new ParseUUIDPipe()) id: string): Promise<boolean> {
+  async delete(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<{ orderDeleteSuccessful: boolean }> {
     return this.orderService.delete(id);
   }
 }
