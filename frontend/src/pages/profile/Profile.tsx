@@ -1,5 +1,5 @@
 import {useAppSelector} from "../../hooks/useAppSelector.ts";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Header} from "../general/Header.tsx";
 import {useActions} from "../../hooks/useActions.ts";
@@ -9,9 +9,8 @@ import {Model} from "../../models/car-model.ts";
 import {CreateUserDto} from "../../models/dto/user/create-user.dto.ts";
 
 export function Profile() {
-    const {user} = useAppSelector(state => state.backend);
-    const {carModels} = useAppSelector(state => state.backend);
-    const {setUser} = useActions();
+    const {user, carModels} = useAppSelector(state => state.backend);
+    const {setUser, clearUser} = useActions();
     const [firstName, setFirstName] = useState<string>(user?.firstName!);
     const [lastName, setLastName] = useState<string>(user?.lastName!);
     const [email, setEmail] = useState<string>(user?.email!);
@@ -137,8 +136,13 @@ export function Profile() {
                             type="submit"
                             className="bg-black text-white font-custom px-4 py-2"
                         >
-                           Update
+                            Update
                         </button>
+                        <p onClick={() => clearUser()} className="text-black bg-white py-2 px-4 font-custom cursor-pointer">
+                            <Link to='/login'>
+                                Logout
+                            </Link>
+                        </p>
                     </div>
                 </form>
             </main>

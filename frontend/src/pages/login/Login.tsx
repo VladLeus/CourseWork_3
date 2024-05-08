@@ -1,7 +1,19 @@
 import {LoginHeader} from "./components/LoginHeader.tsx";
 import {LoginForm} from "./components/LoginForm.tsx";
+import {useAppSelector} from "../../hooks/useAppSelector.ts";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 export function Login() {
+    const {user } = useAppSelector(state => state.backend);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate('/home');
+        }
+    }, [user, navigate]);
+
     return (
         <>
             <LoginHeader/>
