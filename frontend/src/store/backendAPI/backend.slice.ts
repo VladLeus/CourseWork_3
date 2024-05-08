@@ -12,7 +12,7 @@ interface BackendState {
     carParts: CarPart[] | [],
     cart: CarPart[],
     details: Detail[],
-    ordersAdmin: Order[]
+    ordersAdmin: Order[],
 }
 
 const initialState: BackendState = {

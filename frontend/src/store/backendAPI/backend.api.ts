@@ -7,6 +7,7 @@ import {CreateOrderDto} from "../../models/dto/order/create-order.dto.ts";
 import {OrderDetail} from "../../models/dto/order-detail/order-detail.ts";
 import {Order} from "../../models/dto/order/order.ts";
 import {OrderDetailDto} from "../../models/dto/order-detail/order-detail.dto.ts";
+import {User} from "../../models/user-for-admin.ts";
 
 export const backendApi = createApi({
     reducerPath: 'backend/api',
@@ -117,6 +118,17 @@ export const backendApi = createApi({
             transformErrorResponse: (response: any) => {
                 return response
             }
+        }),
+        getAllUsers: build.query<User[], string>({
+            query: () => ({
+                url: `users/admin`
+            }),
+            transformResponse: (response: any) => {
+                return response
+            },
+            transformErrorResponse: (response: any) => {
+                return response
+            }
         })
     })
 });
@@ -130,5 +142,6 @@ export const {
     useLazyGetUserOrdersQuery,
     useUpdateUserMutation,
     useLazyGetAllOrdersQuery,
-    useDeleteOrderMutation
+    useDeleteOrderMutation,
+    useLazyGetAllUsersQuery
 } = backendApi;

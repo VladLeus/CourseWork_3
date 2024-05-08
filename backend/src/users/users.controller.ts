@@ -19,7 +19,7 @@ import { UserProfileDto } from '../dto/user/user-profile.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get()
+  @Get('/admin')
   async getAllUsers(): Promise<User[]> {
     return await this.usersService.findAll();
   }

@@ -29,8 +29,11 @@ const OrderCardAdmin: React.FC<OrderCardAdmin> = ({ order, handleRemoveOrder}) =
             <p className="ml-10 text-black text-lg my-2"><span className="font-custom">User name: </span>
                 {order.user?.firstName}
             </p>
+            <p className="ml-10 text-black text-lg my-2"><span className="font-custom">User email: </span>
+                {order.user?.firstName}
+            </p>
             <p className="ml-10 text-black text-lg my-0.5"><span className="font-custom">Date: </span>
-                {new Date(order.orderDetail.orderDate).toLocaleDateString()}
+                {order.user?.email}
             </p>
             <p className="ml-10 text-black text-lg my-0.5"><span className="font-custom">Price: </span>
                 {order.orderDetail.totalPrice + '$'}
